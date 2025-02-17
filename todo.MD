@@ -22,4 +22,5 @@
     []Descrição (Description: String)
     []Data e Hora (CreatedAt: Timestamp)
     []Dentro ou não da dieta (Diet: Boolean)
+    []ID Usuario (userId: UUID)
 

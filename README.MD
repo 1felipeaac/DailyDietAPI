@@ -17,3 +17,7 @@
 ### Instalar KNEX + Driver do Banco(DEV)
 > ```npm install knex sqlite3```
 - Query Builder
+
+### ⚠️Error [ERR_MODULE_NOT_FOUND]
+- Instalar ts-node
+> ```npm install typescript ts-node @types/node -D```
