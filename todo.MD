@@ -1,26 +1,31 @@
 # Requisitos Funcionais
-[]Criar Usuário (User)
-[]Identificar Usuário entre as requisições
-[]Registrar refeições feitas
-[]Editar Refeição
-[]Listar Refeições por usuário (ListAll)
-[]Visualizar uma refeição (ListById)
-[]Recuperar Métricas dos usuários
+- []Criar Usuário (User)
+- []Registrar refeições feitas
+- []Editar Refeição
+- []Listar Refeições por usuário (ListAll)
+- []Visualizar uma refeição (ListById)
+- []CRUD por usuário
+
+
+# Regras de Negócio
+- []Recuperar Métricas dos usuários
     []Qtde Refeição registradas
     []Qtde Refeição dentro da dieta
     []Qtde Refeição fora da dieta
-    []Melhor sequencia de refeições fora da dieta
-[]CRUD por usuário
+    []Melhor sequencia de refeições dentro da dieta
+- []Identificar Usuário entre as requisições
 
 # Estrutura BD
-[]Tabela de Usuários (users - migrate)
-    []ID (UUID)
-    []Nome (Name: String)
-    []Data de Criação (CreatedAt: Timestamp)
-[]Tabela de refeições (meals - migrate)
-    []Nome  (Name: String)
-    []Descrição (Description: String)
-    []Data e Hora (CreatedAt: Timestamp)
-    []Dentro ou não da dieta (Diet: Boolean)
-    []ID Usuario (userId: UUID)
+- [✅]Tabela de Usuários (users - migrate)
+    [x]ID (id: UUID)
+    [x]Nome (name: String)
+    [x]Data de Criação (createdAt: Timestamp)
+    [x]ID de Sessão (sessionId: UUID)
+- [✅]Tabela de refeições (meals - migrate)
+    [x]ID (id: UUID)
+    [x]Nome  (Name: String)
+    [x]Descrição (Description: String)
+    [x]Data e Hora (CreatedAt: Timestamp)
+    [x]Dentro ou não da dieta (Diet: Boolean)
+    [x]ID do Usuario (userId: UUID)
 

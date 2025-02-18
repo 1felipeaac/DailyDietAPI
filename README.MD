@@ -18,6 +18,14 @@
 > ```npm install knex sqlite3```
 - Query Builder
 
+---
 ### ⚠️Error [ERR_MODULE_NOT_FOUND]
 - Instalar ts-node
 > ```npm install typescript ts-node @types/node -D```
+---
+
+### DotEnv
+> ```npm install dotenv```
+
+### ZOD (validador de dados)
+> ```npm install zod```

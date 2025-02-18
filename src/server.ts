@@ -1,17 +1,8 @@
-import fastify from 'fastify';
-import { knex } from './database';
-
-const app = fastify()
-
-app.get('/daily', async () => {
-
-    const tables = await knex('sqlite_schema').select('*')
-    return tables
-})
-
+import { app } from "./app"
+import { env } from "./env"
 
 app.listen({
-    port: 3333
+    port: env.PORT
 }).then(() => {
     console.log("Servidor rodando na porta 3333")
 })
