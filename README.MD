@@ -1,8 +1,9 @@
-### Iniciar o projeto
+# Iniciar o projeto
+## Instalações
 > ```npm init -y```
 ### Adicionar TS
 > ```npm i -D typescript```
-#### Criar arquivo de Configuração TS (tsconfig.json)
+### Criar arquivo de Configuração TS (tsconfig.json)
 > ```npx tsc --init```
 - Modificar o target para: "ES2020"
 ### Instalar Fastify
@@ -29,3 +30,7 @@
 
 ### ZOD (validador de dados)
 > ```npm install zod```
+
+### Cookies
+> ```npm install @fastify/cookie```
+- Para criar sessões

@@ -1,9 +1,9 @@
 # Requisitos Funcionais
-- []Criar Usuário (User)
+- [x]Criar Usuário (User)
 - []Registrar refeições feitas
 - []Editar Refeição
-- []Listar Refeições por usuário (ListAll)
-- []Visualizar uma refeição (ListById)
+- [x]Listar Refeições por usuário (ListAll)
+- [x]Visualizar uma refeição (ListById)
 - []CRUD por usuário
 
 
@@ -13,7 +13,7 @@
     []Qtde Refeição dentro da dieta
     []Qtde Refeição fora da dieta
     []Melhor sequencia de refeições dentro da dieta
-- []Identificar Usuário entre as requisições
+- [x]Identificar Usuário entre as requisições
 
 # Estrutura BD
 - [✅]Tabela de Usuários (users - migrate)
