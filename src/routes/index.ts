@@ -118,8 +118,6 @@ export async function mealsRoutes(app:FastifyInstance){
         
         const {id} = await getIdbySessionId(request, reply)
 
-        console.log(id)
-
         const meals = await knex('meals')
             .where({userId: id})
             .select()
@@ -131,25 +129,79 @@ export async function mealsRoutes(app:FastifyInstance){
 
     // Contar refeições dentro e fora da dieta
     app.get('/count', async (request, reply) => {
+
+        const {id} = await getIdbySessionId(request, reply)
        
         const mealsCount = await knex('meals')
             .select(
                 knex.raw("COUNT(CASE WHEN diet = 1 THEN 1 END) as diet"),
                 knex.raw("COUNT(CASE WHEN diet = 0 THEN 1 END) as notDiet")
             )
+            .where({userId: id})
             .first(); // Para retornar um objeto ao invés de array
 
         return {mealsCount}
     })
 
+    // Editar Refeição
     app.put('/:id', async (request, reply)=> {
 
-        const createMealsBodySchema = z.object({
+        const createMealsParmsSchema = z.object({
             id: z.string()
         })
 
-        const id = createMealsBodySchema.parse(request.params)
+        const idMeal = createMealsParmsSchema.parse(request.params)
 
+        const createMealsBodySchema = z.object({
+            name: z.string().optional(),
+            description: z.string().optional(),
+            diet: z.boolean().optional()
+        })
+        const { name, description, diet} = createMealsBodySchema.parse(request.body)
+        
+        const {id} = await getIdbySessionId(request, reply) 
+        
+        const mealExists = await knex('meals')
+            .where({ id: idMeal.id, userId: id })
+            .first();
+        
+        if (!mealExists) {
+            return reply.status(404).send({ error: "Refeição não encontrada" });
+        }
+
+        name === undefined ? mealExists.name : name
+        description === undefined ? mealExists.description : description
+        diet === undefined ? mealExists.diet : diet
+
+        await knex('meals')
+            .where({
+                id: idMeal.id,
+                userId: id
+            })
+            .update({
+                name,
+                description,
+                diet,
+                updatedAt: knex.fn.now()
+            })
+
+        return reply.status(200).send({
+            status: `Refeição atualizada com sucesso!`
+        })
+
+    })
+
+    //Excluir Refeição
+    app.delete('/:id', async (request, reply) => {
+        const createMealsParmsSchema = z.object({
+            id: z.string()
+        })
+
+        const idMeal = createMealsParmsSchema.parse(request.params)
+
+        await knex('meals').where({id: idMeal.id}).del()
+
+        return reply.status(204).send({message: "Registo Excluído!"})
     })
 }
 
@@ -157,13 +209,15 @@ async function getIdbySessionId (request:FastifyRequest, reply:FastifyReply){
 
     const { sessionId } = request.cookies
 
-    const {id} = await knex('users').select('id').where({sessionId}).first()
+    const user = await knex('users').select('id').where({sessionId}).first()
 
-    if(!id || !sessionId){
-       return reply.status(404).send({
-        error: 'ID ou Sessão do usuário inválidos'
-       })
+    if(user === null || user === undefined){
+        return reply.status(404).send({
+            error: 'ID ou Sessão do usuário inválidos'
+        })
     }
+
+    const id = user.id
 
     return {id, sessionId}
    

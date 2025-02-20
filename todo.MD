@@ -1,17 +1,17 @@
 # Requisitos Funcionais
 - [x]Criar Usuário (User)
-- []Registrar refeições feitas
-- []Editar Refeição
+- [x]Registrar refeições feitas
+- [x]Editar Refeição
 - [x]Listar Refeições por usuário (ListAll)
 - [x]Visualizar uma refeição (ListById)
-- []CRUD por usuário
+- [x]CRUD por usuário
 
 
 # Regras de Negócio
 - []Recuperar Métricas dos usuários
-    []Qtde Refeição registradas
-    []Qtde Refeição dentro da dieta
-    []Qtde Refeição fora da dieta
+    [x]Qtde Refeição registradas
+    [x]Qtde Refeição dentro da dieta
+    [x]Qtde Refeição fora da dieta
     []Melhor sequencia de refeições dentro da dieta
 - [x]Identificar Usuário entre as requisições
 
