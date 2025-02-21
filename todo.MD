@@ -8,11 +8,11 @@
 
 
 # Regras de Negócio
-- []Recuperar Métricas dos usuários
+- [✅]Recuperar Métricas dos usuários
     [x]Qtde Refeição registradas
     [x]Qtde Refeição dentro da dieta
     [x]Qtde Refeição fora da dieta
-    []Melhor sequencia de refeições dentro da dieta
+    [x]Melhor sequencia de refeições dentro da dieta
 - [x]Identificar Usuário entre as requisições
 
 # Estrutura BD

@@ -37,19 +37,21 @@ export async function usersRoutes(app:FastifyInstance){
     app.get('/', {preHandler: checkSessionIdExists},async () =>{
         
         const createUserSchema = z.object({
-            // id: z.string(),
+            id: z.string(),
             name: z.string(),
             createdAt: z.string(),
-            //sessionId: z.string()
+            sessionId: z.string()
         })
 
         const userSchemaList = z.array(createUserSchema)
 
-        const users = await knex('users').select()
+        const usersList = await knex('users').select()
         
-        const {data} = userSchemaList.safeParse(users)
+        const list = userSchemaList.safeParse(usersList)
 
-        return {data}
+        const users = list.data
+
+        return {users}
     })
 
     // Listar Usuário por ID
@@ -113,7 +115,7 @@ export async function mealsRoutes(app:FastifyInstance){
         return reply.status(200).send()
     })
 
-    // Listar Refeições
+    // Listar Refeições; melhor sequencia de dieta; quantidade de refeição por usuário
     app.get('/', async (request, reply) => {
         
         const {id} = await getIdbySessionId(request, reply)
@@ -123,7 +125,15 @@ export async function mealsRoutes(app:FastifyInstance){
             .select()
 
         const countMeals = meals.length
-        return {countMeals, meals}
+        let listDiet: boolean[] = []
+
+        meals.map((meal) => {
+            listDiet.push(meal.diet)
+        })
+
+        const bestDiet = maxSequence(listDiet, 1)
+
+        return {countMeals, bestDiet ,meals }
         
     })
 
@@ -191,7 +201,7 @@ export async function mealsRoutes(app:FastifyInstance){
 
     })
 
-    //Excluir Refeição
+    // Excluir Refeição
     app.delete('/:id', async (request, reply) => {
         const createMealsParmsSchema = z.object({
             id: z.string()
@@ -203,6 +213,7 @@ export async function mealsRoutes(app:FastifyInstance){
 
         return reply.status(204).send({message: "Registo Excluído!"})
     })
+
 }
 
 async function getIdbySessionId (request:FastifyRequest, reply:FastifyReply){
@@ -221,4 +232,20 @@ async function getIdbySessionId (request:FastifyRequest, reply:FastifyReply){
 
     return {id, sessionId}
    
+}
+
+function maxSequence(list: boolean[], target: number){
+    let sequence = 0
+    let maxSequence = 0;
+
+    for (let diet of list){
+        if(Number(diet) === target){
+            sequence++
+            maxSequence = Math.max(maxSequence, sequence)
+        }else{
+            sequence = 0
+        }
+    }
+
+    return maxSequence
 }

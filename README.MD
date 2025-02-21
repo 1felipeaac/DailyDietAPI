@@ -34,3 +34,11 @@
 ### Cookies
 > ```npm install @fastify/cookie```
 - Para criar sessões
+
+### Testes
+#### Vitest
+> ```npm install vitest -D```
+#### supertest
+> ```npm install supertest -D```
+
+
