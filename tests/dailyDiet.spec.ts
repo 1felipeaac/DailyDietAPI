@@ -137,6 +137,66 @@ describe('Meals Routes', () => {
         }
 
     })
+    it('should be able to list all meals, count and best sequence of diet', async () => {
+        const createUserResponse = await request(app.server)
+            .post('/users')
+            .send({
+                name:"user"
+            })
+
+        const cookie = createUserResponse.get('Set-Cookie')
+
+        if (cookie != null){
+            
+            const listUsersResponse = await request(app.server)
+            .get('/users')
+            .set('Cookie', cookie)
+            
+            const id = listUsersResponse.body.users[0].id
+
+            await request(app.server)
+                .post('/meals')
+                .set('Cookie', cookie)
+                .send({
+                    name: "meal1",
+                    description: "description",
+                    diet: false,
+                    userId: id
+                })
+
+            await request(app.server)
+            .post('/meals')
+            .set('Cookie', cookie)
+            .send({
+                name: "meal2",
+                description: "description",
+                diet: true,
+                userId: id
+            })
+            await request(app.server)
+                .post('/meals')
+                .set('Cookie', cookie)
+                .send({
+                    name: "meal3",
+                    description: "description",
+                    diet: true,
+                    userId: id
+                })
+
+            const listMealsResponse = await request(app.server)
+                .get('/meals')
+                .set('Cookie', cookie)
+                .expect(200)
+
+            expect(listMealsResponse.body).toEqual(
+                expect.objectContaining({
+                    counterMeals: 3,
+                    bestDiet: 2
+                })
+            )
+        }
+
+    })
 
 })
 

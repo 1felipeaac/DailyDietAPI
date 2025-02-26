@@ -40,5 +40,8 @@
 > ```npm install vitest -D```
 #### supertest
 > ```npm install supertest -D```
+- Teste sem colocar a aplicação no ar
+> ```npm install -D @types/supertest```
+
 
 
